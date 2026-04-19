@@ -1,33 +1,57 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Hero from '@components/Hero.astro';
+import StickyWhatsApp from '@components/StickyWhatsApp.astro';
 ---
 <Layout>
-  <main class="container" style="padding-block: var(--space-24);">
-    <section>
-      <span class="subhead">Corporación HA · 2026</span>
-      <h1 style="margin-top: var(--space-4);">
-        Remodelamos tu negocio sin parar tu operación.
-      </h1>
-      <p style="margin-top: var(--space-6); font-size: var(--fs-body-lg); color: var(--text-secondary);">
-        Construcción y remodelación comercial, residencial e industrial en Caracas.
-        Proceso BIM, cero improvisación.
-      </p>
-      <div style="display: flex; gap: var(--space-4); margin-top: var(--space-8); flex-wrap: wrap;">
-        <a href="#contacto" class="btn-primary">Hablar por WhatsApp</a>
-        <a href="#portafolio" class="btn-secondary">Ver obras</a>
-      </div>
+  <Header />
+  <main>
+    <Hero />
 
-      <div style="margin-top: var(--space-24); padding: var(--space-8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-        <span class="subhead">Estado del scaffolding</span>
-        <h3 style="margin-top: var(--space-2);">Fase 1 — Base del proyecto</h3>
-        <ul style="margin-top: var(--space-4); display: grid; gap: var(--space-2); color: var(--text-secondary); list-style: disc; padding-left: var(--space-6);">
-          <li>Astro 5 + TypeScript configurado</li>
-          <li>Tokens oklch (3 colores marca + neutros)</li>
-          <li>Layout base con meta tags + Schema.org</li>
-          <li>Fuentes Montserrat + Switzer (pendiente descarga)</li>
-          <li>Componentes pendientes: Header, Hero, ServicesGrid, PortfolioGrid, ProcessSteps, AboutSection, ContactBlock, StickyWhatsApp, Footer</li>
-        </ul>
+    <section id="servicios" class="container placeholder-section">
+      <span class="subhead">Próximo</span>
+      <h2>Servicios (4 cards 2×2)</h2>
+      <p class="text-secondary">Remodelación · Proyectos de Construcción · Consultoría y Gestión · Diseño y Cálculo Estructural</p>
+    </section>
+
+    <section id="portafolio" class="container placeholder-section">
+      <span class="subhead">Próximo</span>
+      <h2>Portafolio (12 obras · grid 3:2)</h2>
+      <p class="text-secondary">Pádel Nuestro · Roly · Oui Bistro · Rosita · Pádel Point · El Camarón · Lubripartes · Termogeneradores · Peaje Uchire · Túneles · Vivienda mansión · Villa piscina</p>
+    </section>
+
+    <section id="proceso" class="container placeholder-section">
+      <span class="subhead">Próximo</span>
+      <h2>Proceso (4 pasos)</h2>
+      <p class="text-secondary">Visita y diagnóstico · Modelado BIM + presupuesto · Ejecución por fases · Entrega y garantía</p>
+    </section>
+
+    <section id="nosotros" class="section-dark placeholder-section-dark">
+      <div class="container">
+        <span class="subhead" style="color: var(--corpoha-amber-500);">Próximo</span>
+        <h2>Nosotros (sección navy con stats)</h2>
+        <p>12 obras entregadas · 4 categorías · 4 estados</p>
       </div>
     </section>
+
+    <section id="contacto" class="container placeholder-section">
+      <span class="subhead">Próximo</span>
+      <h2>Contacto (CTA WhatsApp grande)</h2>
+      <p class="text-secondary">¿Listo para tu obra?</p>
+    </section>
   </main>
+
+  <StickyWhatsApp />
 </Layout>
+
+<style>
+  .placeholder-section {
+    padding-block: var(--space-16);
+    border-top: 1px dashed var(--border-subtle);
+  }
+
+  .placeholder-section-dark {
+    padding-block: var(--space-16);
+  }
+</style>
