@@ -2,221 +2,93 @@
 import { navItems, whatsappUrl } from '@data/nav';
 import logoGris from '@assets/logos/logo-gris.svg?raw';
 ---
-<header class="site-header" aria-label="Principal">
-  <div class="container header-inner">
-    <a href="#inicio" class="brand" aria-label="Corporación HA — Inicio">
-      <span class="logo-mark" set:html={logoGris} />
+<nav class="nav nav--dark" id="site-nav" aria-label="Principal">
+  <div class="container nav__inner">
+    <a href="#inicio" class="nav__logo" aria-label="Corporación HA — Inicio">
+      <span class="nav__logo-mark" set:html={logoGris} />
+      <span class="nav__logo-text">
+        <span>CORPOHA</span>
+        <span class="nav__logo-sub">Corporación HA</span>
+      </span>
     </a>
 
-    <nav class="nav-primary" aria-label="Navegación principal">
-      <ul>
-        {navItems.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
-      </ul>
-    </nav>
+    <div class="nav__links">
+      {navItems.map((item) => (
+        <a href={item.href} class="nav__link">{item.label}</a>
+      ))}
+    </div>
 
-    <a href={whatsappUrl} class="btn-primary btn-header" rel="noopener">
-      Cotizar
+    <a href={whatsappUrl} class="nav__cta" rel="noopener">
+      Contacto
     </a>
 
     <button
-      class="nav-toggle"
+      class="nav__menu-btn"
       type="button"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="nav-mobile"
+      id="nav-toggle"
     >
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="6" x2="17" y2="6" class="ic-open"></line>
+        <line x1="3" y1="14" x2="17" y2="14" class="ic-open"></line>
+        <line x1="4" y1="4" x2="16" y2="16" class="ic-close"></line>
+        <line x1="16" y1="4" x2="4" y2="16" class="ic-close"></line>
+      </svg>
     </button>
   </div>
+</nav>
 
-  <nav id="nav-mobile" class="nav-mobile" aria-label="Navegación móvil" hidden>
-    <ul>
-      {navItems.map((item) => (
-        <li><a href={item.href}>{item.label}</a></li>
-      ))}
-      <li><a href={whatsappUrl} class="btn-primary" rel="noopener">Cotizar por WhatsApp</a></li>
-    </ul>
-  </nav>
-</header>
+<nav id="nav-mobile" class="nav__mobile" aria-label="Navegación móvil" hidden>
+  {navItems.map((item) => (
+    <a href={item.href}>{item.label}</a>
+  ))}
+  <a href={whatsappUrl} class="nav__mobile-cta" rel="noopener">Contacto →</a>
+</nav>
 
 <style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--nav-bg-scrolled);
-    backdrop-filter: var(--nav-backdrop);
-    -webkit-backdrop-filter: var(--nav-backdrop);
-    border-bottom: var(--nav-border);
-    transition: background 200ms ease-out;
-  }
-
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    min-height: 72px;
-    padding-block: var(--space-3);
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .logo-mark {
-    display: block;
-    width: auto;
-    height: 40px;
-  }
-
-  .logo-mark :global(svg) {
-    height: 40px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-primary {
-    display: none;
-  }
-
-  .nav-primary ul {
-    display: flex;
-    gap: var(--space-8);
-  }
-
-  .nav-primary a {
-    font-family: var(--font-body);
-    font-size: var(--fs-body);
-    color: var(--text-heading);
-    font-weight: 500;
-    padding: var(--space-2) 0;
-    position: relative;
-    transition: color 120ms ease-out;
-  }
-
-  .nav-primary a:hover {
-    color: var(--text-primary);
-  }
-
-  .nav-primary a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -2px;
-    height: 2px;
-    background: var(--action-primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 180ms ease-out;
-  }
-
-  .nav-primary a:hover::after {
-    transform: scaleX(1);
-  }
-
-  .btn-header {
-    display: none;
-  }
-
-  .nav-toggle {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: var(--space-2);
-    min-width: 44px;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav-toggle span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--text-heading);
-    transition: transform 200ms ease-out, opacity 200ms ease-out;
-  }
-
-  .nav-toggle[aria-expanded='true'] span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .nav-toggle[aria-expanded='true'] span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-toggle[aria-expanded='true'] span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  .nav-mobile {
-    padding: var(--space-6) var(--container-padding);
-    border-top: 1px solid var(--border-subtle);
-    background: var(--surface-0);
-  }
-
-  .nav-mobile ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .nav-mobile a:not(.btn-primary) {
-    display: block;
-    padding: var(--space-3) 0;
-    font-size: var(--fs-body-lg);
-    font-weight: 500;
-    color: var(--text-heading);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .nav-mobile .btn-primary {
-    margin-top: var(--space-4);
-    width: 100%;
-  }
-
-  @media (min-width: 900px) {
-    .nav-primary {
-      display: block;
-    }
-    .btn-header {
-      display: inline-flex;
-    }
-    .nav-toggle,
-    .nav-mobile {
-      display: none;
-    }
-  }
+  .ic-close { display: none; }
+  .nav__menu-btn[aria-expanded="true"] .ic-open { display: none; }
+  .nav__menu-btn[aria-expanded="true"] .ic-close { display: inline; }
 </style>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
-  const menu = document.getElementById('nav-mobile');
+  const nav = document.getElementById('site-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('nav-mobile');
 
-  if (toggle && menu) {
+  // Scroll: nav background
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 40) {
+      nav.classList.add('nav--scrolled');
+      nav.classList.remove('nav--dark');
+    } else {
+      nav.classList.remove('nav--scrolled');
+      nav.classList.add('nav--dark');
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Mobile menu
+  if (toggle && mobileMenu) {
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
       toggle.setAttribute('aria-label', expanded ? 'Abrir menú' : 'Cerrar menú');
       if (expanded) {
-        menu.setAttribute('hidden', '');
+        mobileMenu.setAttribute('hidden', '');
       } else {
-        menu.removeAttribute('hidden');
+        mobileMenu.removeAttribute('hidden');
       }
     });
-
-    // Cerrar al hacer click en un link del mobile
-    menu.querySelectorAll('a').forEach((link) => {
+    mobileMenu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
         toggle.setAttribute('aria-expanded', 'false');
         toggle.setAttribute('aria-label', 'Abrir menú');
-        menu.setAttribute('hidden', '');
+        mobileMenu.setAttribute('hidden', '');
       });
     });
   }

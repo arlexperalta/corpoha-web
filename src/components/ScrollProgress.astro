@@ -1,0 +1,18 @@
+---
+---
+<div class="progress" id="scroll-progress" aria-hidden="true"></div>
+
+<script>
+  const bar = document.getElementById('scroll-progress');
+  if (bar) {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      bar.style.width = `${p}%`;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+</script>

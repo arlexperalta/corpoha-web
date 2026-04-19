@@ -18,172 +18,54 @@ const serviceLinks = [
   { label: 'Cálculo Estructural', href: '#servicios' },
 ];
 ---
-<footer class="site-footer section-dark">
+<footer class="footer">
   <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="footer-logo" set:html={logoBlanco} />
-        <p class="footer-tagline">
-          Construcción y remodelación<br>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="nav__logo">
+          <span class="nav__logo-mark" set:html={logoBlanco} />
+          <span class="nav__logo-text">
+            <span>CORPOHA</span>
+            <span class="nav__logo-sub">Corporación HA</span>
+          </span>
+        </div>
+        <p class="footer__tagline">
+          Construcción y remodelación<br/>
           Caracas · Venezuela
         </p>
-        <a href="https://instagram.com/corpoha85" rel="noopener" target="_blank" class="footer-social">
-          @corpoha85
-        </a>
       </div>
 
-      <div class="footer-column">
-        <h4>Navegación</h4>
-        <ul>
-          {navItems.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="footer-column">
-        <h4>Servicios</h4>
-        <ul>
+      <div>
+        <div class="footer__col-title">Servicios</div>
+        <ul class="footer__col-list">
           {serviceLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
         </ul>
       </div>
 
-      <div class="footer-column">
-        <h4>Obras</h4>
-        <ul>
+      <div>
+        <div class="footer__col-title">Obras</div>
+        <ul class="footer__col-list">
           {categoryLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
         </ul>
       </div>
 
-      <div class="footer-column">
-        <h4>Legal</h4>
-        <ul>
+      <div>
+        <div class="footer__col-title">Legal</div>
+        <ul class="footer__col-list">
           <li><a href="/politica-privacidad">Política de privacidad</a></li>
           <li><a href="/terminos">Términos</a></li>
+          <li><a href="https://instagram.com/corpoha85" target="_blank" rel="noopener">Instagram ↗</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <p>&copy; {currentYear} Corporación HA. Todos los derechos reservados.</p>
-      <p class="footer-pending">RIF pendiente de confirmación</p>
+    <div class="footer__bot">
+      <div>© {currentYear} Corporación HA · Todos los derechos reservados</div>
+      <div>Caracas · VE · RIF pendiente</div>
     </div>
   </div>
 </footer>
-
-<style>
-  .site-footer {
-    padding-block: var(--space-24) var(--space-12);
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-12);
-    padding-bottom: var(--space-16);
-    border-bottom: 1px solid color-mix(in oklch, var(--text-on-dark) 15%, transparent);
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .footer-logo :global(svg) {
-    height: 56px;
-    width: auto;
-    display: block;
-  }
-
-  .footer-tagline {
-    color: var(--text-dim-on-dark);
-    max-width: 260px;
-    font-size: var(--fs-body);
-    line-height: 1.5;
-  }
-
-  .footer-social {
-    font-family: var(--font-body);
-    font-size: var(--fs-body);
-    font-weight: 500;
-    color: var(--text-on-dark);
-    border-bottom: 1px solid var(--action-primary);
-    padding-bottom: 2px;
-    align-self: flex-start;
-    transition: color 150ms ease-out;
-  }
-
-  .footer-social:hover {
-    color: var(--action-primary);
-  }
-
-  .footer-column h4 {
-    font-family: var(--font-body);
-    font-size: var(--fs-caption);
-    font-weight: 600;
-    color: var(--action-primary);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: var(--space-4);
-  }
-
-  .footer-column ul {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .footer-column a {
-    color: var(--text-dim-on-dark);
-    font-size: var(--fs-body);
-    transition: color 150ms ease-out;
-  }
-
-  .footer-column a:hover {
-    color: var(--text-on-dark);
-  }
-
-  .footer-bottom {
-    margin-top: var(--space-8);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    font-size: var(--fs-caption);
-    color: var(--text-dim-on-dark);
-  }
-
-  .footer-pending {
-    opacity: 0.7;
-    font-style: italic;
-  }
-
-  @media (min-width: 640px) {
-    .footer-grid {
-      grid-template-columns: 1.5fr 1fr 1fr;
-    }
-
-    .footer-brand {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .footer-grid {
-      grid-template-columns: 1.8fr repeat(4, 1fr);
-    }
-
-    .footer-brand {
-      grid-column: auto;
-    }
-
-    .footer-bottom {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-</style>

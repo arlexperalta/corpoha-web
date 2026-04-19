@@ -1,118 +1,69 @@
 /* ============================================================
    CorpoHA — Design Tokens
-   Fuente: docs/04-brief-visual-kroma-final.md
-   Aesthetic direction: Industrial / utilitarian
+   Aesthetic direction: Industrial / utilitarian técnico
    ============================================================ */
 
 :root {
-  /* ---------- PRIMITIVE: COLOR ---------- */
-
-  /* Marca — 3 colores */
-  --corpoha-amber-500: oklch(78% 0.14 78);       /* #F9B233 — CTA, acento */
-  --corpoha-steel-600: oklch(45% 0.005 250);     /* #595C5F — estructura */
-  --corpoha-navy-900:  oklch(22% 0.13 265);      /* #000A5B — contraste */
-
-  /* Derivados (hover/focus) */
-  --corpoha-amber-600: color-mix(in oklch, var(--corpoha-amber-500) 85%, var(--corpoha-steel-600));
-  --corpoha-navy-800:  color-mix(in oklch, var(--corpoha-navy-900) 85%, white);
+  /* ---------- COLORES MARCA ---------- */
+  --amber:     #F9B233;
+  --amber-ink: #1A1300;  /* texto oscuro sobre amber */
+  --steel:    #595C5F;
+  --navy:     #000A5B;
+  --navy-deep: #00063D;
 
   /* Neutros */
-  --corpoha-ink-950:   oklch(15% 0 0);
-  --corpoha-ink-700:   oklch(35% 0 0);
-  --corpoha-paper-50:  oklch(98.5% 0 0);
-  --corpoha-paper-100: oklch(96% 0 0);
-  --corpoha-paper-200: oklch(92% 0 0);
+  --ink-950:   #1A1A1A;
+  --ink-700:   #4A4A4A;
+  --ink-500:   #8A8A8A;
+  --paper-50:  #FAFAFA;
+  --paper-100: #F0F0F0;
+  --paper-200: #DDDDDD;
+  --paper-300: #C4C4C4;
 
-  /* ---------- PRIMITIVE: SPACE (4px base) ---------- */
-  --space-1:  0.25rem;   /* 4  */
-  --space-2:  0.5rem;    /* 8  */
-  --space-3:  0.75rem;   /* 12 */
-  --space-4:  1rem;      /* 16 */
-  --space-6:  1.5rem;    /* 24 */
-  --space-8:  2rem;      /* 32 */
-  --space-12: 3rem;      /* 48 */
-  --space-16: 4rem;      /* 64 */
-  --space-24: 6rem;      /* 96 */
-  --space-32: 8rem;      /* 128 */
+  /* ---------- TIPOGRAFÍA ---------- */
+  --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:    "Switzer", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* ---------- PRIMITIVE: TYPOGRAPHY ---------- */
-  --font-heading: "Montserrat", system-ui, -apple-system, sans-serif;
-  --font-body:    "Switzer", "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Montserrat", system-ui, sans-serif;
+  /* ---------- LAYOUT ---------- */
+  --max:   1400px;
+  --pad-x: clamp(20px, 5vw, 64px);
 
-  /* Escala responsive */
-  --fs-caption:  clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
-  --fs-body:     clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --fs-body-lg:  clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
-  --fs-h3:       clamp(1.5rem, 1.35rem + 0.75vw, 2rem);
-  --fs-h2:       clamp(2rem, 1.7rem + 1.5vw, 2.75rem);
-  --fs-h1:       clamp(2.5rem, 2rem + 2.5vw, 4rem);
-  --fs-display:  clamp(3rem, 2.2rem + 4vw, 5.5rem);
+  /* ---------- LEGACY (compatibilidad con tokens previos) ---------- */
+  --corpoha-amber-500: var(--amber);
+  --corpoha-steel-600: var(--steel);
+  --corpoha-navy-900:  var(--navy);
+  --corpoha-ink-950:   var(--ink-950);
+  --corpoha-ink-700:   var(--ink-700);
+  --corpoha-paper-50:  var(--paper-50);
+  --corpoha-paper-100: var(--paper-100);
+  --corpoha-paper-200: var(--paper-200);
+  --action-primary: var(--amber);
+  --focus-ring:     var(--amber);
+  --surface-0:      var(--paper-50);
+  --surface-1:      var(--paper-100);
+  --text-primary:   var(--ink-950);
+  --text-secondary: var(--ink-700);
 
-  /* ---------- PRIMITIVE: RADIUS & BORDER ---------- */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  /* Spacing (4px base) — usados por legal pages */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
 
-  /* ---------- SEMANTIC TOKENS ---------- */
+  --radius-sm: 2px;
+  --radius-md: 4px;
 
-  /* Surface */
-  --surface-0:    var(--corpoha-paper-50);
-  --surface-1:    var(--corpoha-paper-100);
-  --surface-dark: var(--corpoha-navy-900);
-
-  /* Text */
-  --text-primary:   var(--corpoha-ink-950);
-  --text-secondary: var(--corpoha-ink-700);
-  --text-heading:   var(--corpoha-steel-600);
-  --text-on-dark:   var(--corpoha-paper-50);
-  --text-dim-on-dark: color-mix(in oklch, var(--corpoha-paper-50) 75%, var(--corpoha-navy-900));
-
-  /* Action */
-  --action-primary:       var(--corpoha-amber-500);
-  --action-primary-hover: var(--corpoha-amber-600);
-  --action-on-primary:    var(--corpoha-ink-950);
-
-  /* Structure */
-  --border-subtle: var(--corpoha-paper-200);
-  --divider:       var(--corpoha-steel-600);
-  --focus-ring:    var(--corpoha-amber-500);
-
-  /* ---------- COMPONENT TOKENS ---------- */
-
-  /* Button primary */
-  --btn-bg:         var(--action-primary);
-  --btn-text:       var(--action-on-primary);
-  --btn-bg-hover:   var(--action-primary-hover);
-  --btn-radius:     var(--radius-sm);
-  --btn-padding-y:  0.875rem;   /* 14px */
-  --btn-padding-x:  1.75rem;    /* 28px */
-
-  /* Button secondary (outline) */
-  --btn-secondary-bg:     transparent;
-  --btn-secondary-border: var(--corpoha-steel-600);
-  --btn-secondary-text:   var(--corpoha-steel-600);
-
-  /* Card */
-  --card-bg:     var(--surface-0);
-  --card-border: 1px solid var(--border-subtle);
-  --card-radius: var(--radius-md);
-  --card-padding: var(--space-8);
-
-  /* Nav */
-  --nav-bg-scrolled: color-mix(in oklch, var(--surface-0) 90%, transparent);
-  --nav-backdrop:    blur(12px);
-  --nav-border:      1px solid var(--border-subtle);
-
-  /* Container */
-  --container-max:     1280px;
-  --container-padding: var(--space-6);
-
-  /* Grid */
-  --grid-gutter:        var(--space-6);
-  --grid-gutter-mobile: var(--space-4);
-
-  /* Section spacing */
-  --section-spacing:        var(--space-24);
-  --section-spacing-mobile: var(--space-16);
+  --fs-caption: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
+  --fs-body:    clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-body-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --fs-h3:      clamp(1.5rem, 1.35rem + 0.75vw, 2rem);
+  --fs-h2:      clamp(2rem, 1.7rem + 1.5vw, 2.75rem);
+  --fs-h1:      clamp(2.5rem, 2rem + 2.5vw, 4rem);
 }

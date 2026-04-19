@@ -1,119 +1,88 @@
 ---
-const stats = [
-  { number: '12+', label: 'Obras entregadas' },
-  { number: '4', label: 'Categorías de proyecto' },
-  { number: '4', label: 'Estados de Venezuela' },
-  { number: 'BIM', label: 'Modelado 3D pre-obra' },
-];
 ---
-<section id="nosotros" class="about section-dark">
+<section id="nosotros" class="about">
   <div class="container">
-    <div class="about-inner">
-      <div class="about-content">
-        <span class="subhead about-eyebrow">Quiénes somos</span>
-        <h2 class="about-title">
-          Construimos espacios que inspiran<br>
-          y perduran.
-        </h2>
-        <div class="about-body">
-          <p>
-            Corporación HA es una empresa venezolana especializada en construcción y
-            remodelación. Desde transformaciones residenciales hasta infraestructura
-            nacional, usamos tecnología BIM y nos comprometemos con regulaciones locales
-            para entregar proyectos que funcionan y permanecen.
-          </p>
-          <p>
-            Gestionamos obras sin interrumpir tu operación. Cumplimos plazos incluso con
-            urgencia. Acabados con estándares internacionales, ejecución con disciplina
-            técnica local.
-          </p>
-        </div>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow sec-head__eyebrow" style="color: var(--amber);">Quiénes somos</div>
+      </div>
+    </div>
+
+    <div class="about__grid">
+      <div class="about__text">
+        <h2>Construimos espacios que inspiran <em>y perduran.</em></h2>
+        <p>
+          Corporación HA es una empresa venezolana especializada en construcción y remodelación.
+          Desde transformaciones residenciales hasta infraestructura nacional, usamos tecnología BIM
+          y nos comprometemos con regulaciones locales para entregar proyectos que funcionan y permanecen.
+        </p>
+        <p>
+          Gestionamos obras sin interrumpir tu operación. Cumplimos plazos incluso con urgencia.
+          Acabados con estándares internacionales, ejecución con disciplina técnica local.
+        </p>
       </div>
 
-      <ul class="about-stats">
-        {stats.map((stat) => (
-          <li class="stat">
-            <span class="stat-number">{stat.number}</span>
-            <span class="stat-label">{stat.label}</span>
-          </li>
-        ))}
-      </ul>
+      <div class="about__stats" id="about-stats">
+        <div class="about__stat">
+          <div class="about__stat-num mono" data-target="12" data-suffix="+">
+            <span class="stat-value">00</span>
+            <span class="about__stat-unit">+</span>
+          </div>
+          <div class="about__stat-label">Obras entregadas</div>
+        </div>
+        <div class="about__stat">
+          <div class="about__stat-num mono" data-target="4">
+            <span class="stat-value">00</span>
+          </div>
+          <div class="about__stat-label">Categorías de proyecto</div>
+        </div>
+        <div class="about__stat">
+          <div class="about__stat-num mono" data-target="4">
+            <span class="stat-value">00</span>
+          </div>
+          <div class="about__stat-label">Estados de Venezuela</div>
+        </div>
+        <div class="about__stat">
+          <div class="about__stat-num" style="font-size: clamp(28px, 3.5vw, 44px);">BIM</div>
+          <div class="about__stat-label">Modelado 3D pre-obra</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<style>
-  .about {
-    padding-block: var(--space-24);
-  }
+<script>
+  const statsContainer = document.getElementById('about-stats');
+  if (statsContainer) {
+    const animateCounter = (el: HTMLElement, target: number) => {
+      const duration = 1200;
+      const start = performance.now();
+      const span = el.querySelector<HTMLElement>('.stat-value');
+      if (!span) return;
+      const tick = (t: number) => {
+        const p = Math.min((t - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const current = Math.round(target * eased);
+        span.textContent = String(current).padStart(2, '0');
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
 
-  .about-inner {
-    display: grid;
-    gap: var(--space-16);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            statsContainer.querySelectorAll<HTMLElement>('[data-target]').forEach((el) => {
+              const target = parseInt(el.dataset.target || '0', 10);
+              if (target) animateCounter(el, target);
+            });
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(statsContainer);
   }
-
-  .about-eyebrow {
-    color: var(--action-primary);
-    display: inline-block;
-    padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--action-primary);
-  }
-
-  .about-title {
-    margin-top: var(--space-6);
-    color: var(--text-on-dark);
-    line-height: 1.1;
-  }
-
-  .about-body {
-    margin-top: var(--space-8);
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .about-body p {
-    color: var(--text-dim-on-dark);
-    font-size: var(--fs-body-lg);
-    max-width: 58ch;
-  }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-8);
-    align-content: start;
-  }
-
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-6) 0;
-    border-top: 1px solid color-mix(in oklch, var(--text-on-dark) 20%, transparent);
-  }
-
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: var(--fs-display);
-    font-weight: 800;
-    color: var(--action-primary);
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: var(--font-body);
-    font-size: var(--fs-caption);
-    color: var(--text-dim-on-dark);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  @media (min-width: 1024px) {
-    .about-inner {
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: var(--space-24);
-      align-items: start;
-    }
-  }
-</style>
+</script>
