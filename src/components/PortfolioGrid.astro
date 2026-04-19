@@ -23,7 +23,7 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
     </div>
 
     <div class="portfolio__filters" role="group" aria-label="Filtros de portafolio">
-      {categoryFilters.map((c, i) => (
+      {categoryFilters.map((c) => (
         <button
           type="button"
           class={`filter ${c === 'Todos' ? 'filter--active' : ''}`}
@@ -34,113 +34,181 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
       ))}
     </div>
 
-    <div class="portfolio__list">
+    <div class="portfolio__grid">
       {projects.map((p, i) => (
-        <div
-          class="project"
-          data-category={p.categoryLabel}
-          data-id={p.id}
-        >
-          <div class="project__num">{padNumber(i + 1)}</div>
-          <div class="project__head">
-            <h3 class="project__name">{p.name}</h3>
-            <div class="project__loc">{p.location} · {p.year}</div>
-          </div>
-          <p class="project__desc">{p.description}</p>
-          <div class="project__cat">
-            {p.categoryLabel}<br/>
-            <span class="project__cat-hint">[ ver detalle + ]</span>
-          </div>
+        <article class="card" data-category={p.categoryLabel} data-id={p.id}>
+          <div class="card__img">
+            <Image
+              src={p.image}
+              alt={p.imageAlt}
+              widths={[320, 480, 640, 800]}
+              sizes="(min-width: 1200px) 25vw, (min-width: 768px) 33vw, (min-width: 480px) 50vw, 100vw"
+              format="avif"
+              quality={72}
+              loading="lazy"
+            />
+            <div class="card__img-overlay" aria-hidden="true"></div>
 
-          <div class="project__expand">
-            <div class="project__expand-inner">
-              <div class="project__img">
-                <Image
-                  src={p.image}
-                  alt={p.imageAlt}
-                  widths={[400, 600, 900]}
-                  sizes="(min-width: 768px) 60vw, 100vw"
-                  format="avif"
-                  quality={72}
-                  loading="lazy"
-                />
-              </div>
-              <div class="project__meta">
-                <div>
-                  <div class="project__meta-label">Código</div>
-                  <div class="project__meta-val mono">PR-{padNumber(i + 1)}</div>
-                </div>
-                <div>
-                  <div class="project__meta-label">Año</div>
-                  <div class="project__meta-val mono">{p.year}</div>
-                </div>
-                <div>
-                  <div class="project__meta-label">Ubicación</div>
-                  <div class="project__meta-val">{p.location}</div>
-                </div>
-                <div>
-                  <div class="project__meta-label">Categoría</div>
-                  <div class="project__meta-val">{p.categoryLabel}</div>
-                </div>
-                <div>
-                  <div class="project__meta-label">Área</div>
-                  <div class="project__meta-val mono">{p.area}</div>
-                </div>
-                <div>
-                  <div class="project__meta-label">Duración</div>
-                  <div class="project__meta-val mono">{p.duration}</div>
-                </div>
-                <div style="grid-column: 1 / -1;">
-                  <div class="project__meta-label">Alcance</div>
-                  <div class="project__meta-val" style="font-size: 13px; color: var(--ink-700); font-weight: 400; line-height: 1.5;">
-                    {p.description}
-                  </div>
-                </div>
+            <div class="card__hover" aria-hidden="true">
+              <div class="card__hover-code">PR-{padNumber(i + 1)} · {p.year}</div>
+              <div class="card__hover-title">{p.name}</div>
+              <div class="card__hover-meta">
+                {p.area !== '—' && <span>{p.area}</span>}
+                {p.duration !== '—' && <span>· {p.duration}</span>}
               </div>
             </div>
           </div>
-        </div>
+          <div class="card__body">
+            <span class="card__cat">{p.categoryLabel}</span>
+            <h3 class="card__name">{p.name}</h3>
+            <div class="card__loc">{p.location} · {p.year}</div>
+          </div>
+        </article>
       ))}
     </div>
   </div>
 </section>
 
 <style>
-  .project__cat-hint {
-    opacity: 0.6;
+  .portfolio__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+    background: var(--paper-200);
+  }
+
+  .card {
+    background: var(--paper-50);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .card__img {
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+    background: var(--navy);
+    isolation: isolate;
+  }
+
+  .card__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .card:hover .card__img :global(img) {
+    transform: scale(1.04);
+  }
+
+  .card__img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 10, 91, 0.35) 100%);
+    pointer-events: none;
+  }
+
+  .card__hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(249, 178, 51, 0.94);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: var(--amber-ink);
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .card:hover .card__hover {
+    opacity: 1;
+  }
+
+  .card__hover-code {
+    font-family: var(--font-mono);
     font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
   }
-  .project--open .project__cat-hint::before {
-    content: "[ — cerrar ]";
+
+  .card__hover-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
   }
-  .project--open .project__cat-hint { font-size: 0; }
-  .project--open .project__cat-hint::before { font-size: 10px; }
+
+  .card__hover-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-top: 4px;
+    display: flex;
+    gap: 6px;
+  }
+
+  .card__body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card__cat {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber-ink);
+    background: var(--amber);
+    display: inline-block;
+    padding: 3px 8px;
+    width: fit-content;
+  }
+
+  .card__name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--ink-950);
+  }
+
+  .card__loc {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--steel);
+    letter-spacing: 0.06em;
+  }
 </style>
 
 <script>
   const filters = document.querySelectorAll<HTMLButtonElement>('.filter');
-  const projectsEls = document.querySelectorAll<HTMLElement>('.project');
+  const cards = document.querySelectorAll<HTMLElement>('.card');
 
   filters.forEach((btn) => {
     btn.addEventListener('click', () => {
       const filterValue = btn.dataset.filter || 'Todos';
       filters.forEach((b) => b.classList.toggle('filter--active', b === btn));
-      projectsEls.forEach((p) => {
-        const cat = p.dataset.category;
+      cards.forEach((c) => {
+        const cat = c.dataset.category;
         const show = filterValue === 'Todos' || cat === filterValue;
-        p.style.display = show ? '' : 'none';
-        p.classList.remove('project--open');
+        c.style.display = show ? '' : 'none';
       });
-    });
-  });
-
-  projectsEls.forEach((p) => {
-    p.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('a, button')) return;
-      projectsEls.forEach((other) => {
-        if (other !== p) other.classList.remove('project--open');
-      });
-      p.classList.toggle('project--open');
     });
   });
 </script>
