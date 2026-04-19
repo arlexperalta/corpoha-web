@@ -15,9 +15,11 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString() ?? 'https://corpoha.com';
+const siteUrl = Astro.site?.toString() ?? 'https://arlexperalta.com';
+const baseUrl = import.meta.env.BASE_URL;
+const faviconHref = `${baseUrl}/favicon.svg`.replace(/\/+/g, '/');
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageUrl = new URL(image, siteUrl).toString();
+const ogImageUrl = new URL(`${baseUrl}${image}`.replace(/\/+/g, '/'), siteUrl).toString();
 ---
 <!doctype html>
 <html lang="es">
@@ -31,32 +33,8 @@ const ogImageUrl = new URL(image, siteUrl).toString();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Preload fonts críticas -->
-    <link
-      rel="preload"
-      href="/fonts/Montserrat-Variable.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/Switzer-Variable.ttf"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/JetBrainsMono-Variable.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
