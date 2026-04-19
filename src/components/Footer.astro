@@ -20,11 +20,6 @@ const serviceLinks = [
 ---
 <footer class="site-footer section-dark">
   <div class="container">
-    <div class="footer-top">
-      <span class="footer-stamp">Corpoha · 2026</span>
-      <span class="footer-coords">10°30′N 66°54′W</span>
-    </div>
-
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="footer-logo" set:html={logoBlanco} />
@@ -38,7 +33,7 @@ const serviceLinks = [
       </div>
 
       <div class="footer-column">
-        <h4><span class="footer-column-num">01</span>Navegación</h4>
+        <h4>Navegación</h4>
         <ul>
           {navItems.map((item) => (
             <li><a href={item.href}>{item.label}</a></li>
@@ -47,7 +42,7 @@ const serviceLinks = [
       </div>
 
       <div class="footer-column">
-        <h4><span class="footer-column-num">02</span>Servicios</h4>
+        <h4>Servicios</h4>
         <ul>
           {serviceLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -56,7 +51,7 @@ const serviceLinks = [
       </div>
 
       <div class="footer-column">
-        <h4><span class="footer-column-num">03</span>Obras</h4>
+        <h4>Obras</h4>
         <ul>
           {categoryLinks.map((link) => (
             <li><a href={link.href}>{link.label}</a></li>
@@ -65,7 +60,7 @@ const serviceLinks = [
       </div>
 
       <div class="footer-column">
-        <h4><span class="footer-column-num">04</span>Legal</h4>
+        <h4>Legal</h4>
         <ul>
           <li><a href="/politica-privacidad">Política de privacidad</a></li>
           <li><a href="/terminos">Términos</a></li>
@@ -82,42 +77,14 @@ const serviceLinks = [
 
 <style>
   .site-footer {
-    padding-block: var(--space-16) var(--space-12);
-  }
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: var(--space-10);
-    border-bottom: 1px solid color-mix(in oklch, var(--text-on-dark) 20%, transparent);
-  }
-
-  .footer-stamp {
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: var(--action-primary);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
-    padding-left: var(--space-4);
-    border-left: 3px solid var(--action-primary);
-  }
-
-  .footer-coords {
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    color: var(--text-dim-on-dark);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
+    padding-block: var(--space-24) var(--space-12);
   }
 
   .footer-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-12);
-    padding-block: var(--space-16);
+    padding-bottom: var(--space-16);
     border-bottom: 1px solid color-mix(in oklch, var(--text-on-dark) 15%, transparent);
   }
 
@@ -156,25 +123,13 @@ const serviceLinks = [
   }
 
   .footer-column h4 {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
     font-weight: 600;
-    color: var(--text-on-dark);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid color-mix(in oklch, var(--text-on-dark) 20%, transparent);
-  }
-
-  .footer-column-num {
-    font-family: var(--font-display);
-    font-weight: 800;
     color: var(--action-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-4);
   }
 
   .footer-column ul {
@@ -185,30 +140,24 @@ const serviceLinks = [
   .footer-column a {
     color: var(--text-dim-on-dark);
     font-size: var(--fs-body);
-    transition: color 150ms ease-out, padding-left 150ms ease-out;
-    display: inline-block;
+    transition: color 150ms ease-out;
   }
 
   .footer-column a:hover {
     color: var(--text-on-dark);
-    padding-left: var(--space-2);
   }
 
   .footer-bottom {
-    margin-top: var(--space-6);
+    margin-top: var(--space-8);
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 500;
+    font-size: var(--fs-caption);
     color: var(--text-dim-on-dark);
-    letter-spacing: var(--letter-spacing-mono);
-    text-transform: uppercase;
   }
 
   .footer-pending {
-    opacity: 0.6;
+    opacity: 0.7;
     font-style: italic;
   }
 

@@ -3,65 +3,41 @@ import { Image } from 'astro:assets';
 import { whatsappUrl } from '@data/nav';
 import heroImg from '@assets/portfolio/roly-hero.png';
 ---
-<section id="inicio" class="hero bg-blueprint">
-  <div class="hero-watermark" aria-hidden="true">
-    <span class="watermark watermark-parallax">01</span>
-  </div>
-
+<section id="inicio" class="hero">
   <div class="container hero-inner">
-    <dl class="metadata-strip hero-meta">
-      <div><dt>N°</dt><dd>001 / Corpoha</dd></div>
-      <div><dt>Ubicación</dt><dd>Caracas · 10°30′N 66°54′W</dd></div>
-      <div><dt>Portafolio</dt><dd>2026</dd></div>
-      <div><dt>Proceso</dt><dd>BIM</dd></div>
-    </dl>
-
-    <div class="hero-layout">
-      <div class="hero-content reveal-lift">
-        <span class="section-marker">Construcción / Remodelación</span>
-        <h1 class="hero-title">
-          <span class="line-1">Remodelamos</span>
-          <span class="line-2">tu negocio</span>
-          <span class="line-3 accent">sin parar</span>
-          <span class="line-4 accent">tu operación.</span>
-        </h1>
-
-        <div class="hero-sub-wrap">
-          <span class="hairline-v" aria-hidden="true"></span>
-          <p class="hero-sub">
-            Construcción y remodelación comercial, residencial e industrial en Caracas.
-            Proceso BIM, ejecución por fases, cero improvisación.
-          </p>
-        </div>
-
-        <div class="hero-ctas">
-          <a href={whatsappUrl} class="btn-primary" rel="noopener">
-            Hablar por WhatsApp
-          </a>
-          <a href="#portafolio" class="arrow-link">Ver las doce obras</a>
-        </div>
+    <div class="hero-content">
+      <span class="subhead hero-eyebrow">Construcción · Remodelación · Caracas</span>
+      <h1 class="hero-title">
+        Remodelamos tu negocio<br>
+        <span class="accent">sin parar tu operación.</span>
+      </h1>
+      <p class="hero-sub">
+        Construcción y remodelación comercial, residencial e industrial en Caracas.
+        Proceso BIM, ejecución por fases, cero improvisación.
+      </p>
+      <div class="hero-ctas">
+        <a href={whatsappUrl} class="btn-primary" rel="noopener">
+          Hablar por WhatsApp
+        </a>
+        <a href="#portafolio" class="btn-secondary">Ver obras</a>
       </div>
+    </div>
 
-      <figure class="hero-image brackets reveal-lift">
-        <Image
-          src={heroImg}
-          alt="Tienda Roly — interior comercial remodelado con iluminación hexagonal en Caracas"
-          widths={[640, 960, 1280, 1600]}
-          sizes="(min-width: 1024px) 52vw, 100vw"
-          format="avif"
-          quality={72}
-          loading="eager"
-          fetchpriority="high"
-        />
-        <div class="hero-image-overlay" aria-hidden="true"></div>
-        <figcaption class="hero-image-caption">
-          <span class="caption-number">001</span>
-          <span class="caption-meta">
-            <span>Tienda Roly</span>
-            <span>Caracas · Comercial</span>
-          </span>
-        </figcaption>
-      </figure>
+    <div class="hero-image">
+      <Image
+        src={heroImg}
+        alt="Tienda Roly — interior comercial remodelado con iluminación hexagonal en Caracas"
+        widths={[640, 960, 1280, 1600]}
+        sizes="(min-width: 1024px) 52vw, 100vw"
+        format="avif"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero-image-overlay" aria-hidden="true"></div>
+      <span class="hero-image-caption">
+        Tienda Roly · Caracas
+      </span>
     </div>
   </div>
 </section>
@@ -69,34 +45,12 @@ import heroImg from '@assets/portfolio/roly-hero.png';
 <style>
   .hero {
     padding-block: var(--space-16) var(--space-24);
-    background-color: var(--surface-0);
+    background: var(--surface-0);
     position: relative;
     overflow: hidden;
   }
 
-  .hero-watermark {
-    position: absolute;
-    top: -4vh;
-    right: -8vw;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .hero-watermark .watermark {
-    display: block;
-    line-height: 0.85;
-  }
-
   .hero-inner {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-meta {
-    margin-bottom: var(--space-12);
-  }
-
-  .hero-layout {
     display: grid;
     gap: var(--space-12);
   }
@@ -105,67 +59,42 @@ import heroImg from '@assets/portfolio/roly-hero.png';
     max-width: 640px;
   }
 
-  .hero-title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.04em;
-    margin-top: var(--space-6);
-    font-size: clamp(2.75rem, 2.2rem + 3vw, 4.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.035em;
-    color: var(--text-primary);
-    text-wrap: balance;
+  .hero-eyebrow {
+    display: inline-block;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--action-primary);
   }
 
-  .hero-title .line-3,
-  .hero-title .line-4 {
+  .hero-title {
+    margin-top: var(--space-6);
+    font-size: var(--fs-h1);
+    line-height: 1.05;
+    color: var(--text-primary);
+  }
+
+  .hero-title .accent {
     color: var(--text-heading);
   }
 
-  .hero-title .line-3 {
-    padding-left: 2ch;
-  }
-
-  .hero-title .line-4 {
-    padding-left: 3ch;
-  }
-
-  .hero-sub-wrap {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-4);
-    margin-top: var(--space-8);
-    align-items: start;
-  }
-
-  .hairline-v {
-    display: block;
-    width: 2px;
-    height: 100%;
-    min-height: 40px;
-    background: var(--action-primary);
-  }
-
   .hero-sub {
+    margin-top: var(--space-6);
     font-size: var(--fs-body-lg);
     color: var(--text-secondary);
-    max-width: 52ch;
+    max-width: 56ch;
   }
 
   .hero-ctas {
     margin-top: var(--space-8);
     display: flex;
-    gap: var(--space-6);
+    gap: var(--space-4);
     flex-wrap: wrap;
-    align-items: center;
   }
 
   .hero-image {
     position: relative;
+    border-radius: var(--radius-md);
     overflow: hidden;
     aspect-ratio: 4 / 5;
-    background: var(--surface-1);
-    isolation: isolate;
   }
 
   .hero-image :global(img) {
@@ -184,48 +113,17 @@ import heroImg from '@assets/portfolio/roly-hero.png';
 
   .hero-image-caption {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: flex-end;
-    gap: var(--space-3);
-    padding: var(--space-5) var(--space-6);
-    background: linear-gradient(
-      to top,
-      color-mix(in oklch, var(--corpoha-navy-900) 96%, transparent) 10%,
-      transparent 100%
-    );
-  }
-
-  .caption-number {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 2.5rem;
-    color: var(--action-primary);
-    letter-spacing: -0.04em;
-    line-height: 0.85;
-  }
-
-  .caption-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    background: color-mix(in oklch, var(--corpoha-navy-900) 92%, transparent);
     color: var(--text-on-dark);
     font-family: var(--font-body);
-  }
-
-  .caption-meta span:first-child {
-    font-size: var(--fs-body);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .caption-meta span:last-child {
     font-size: var(--fs-caption);
-    opacity: 0.85;
-    letter-spacing: var(--letter-spacing-mono);
+    font-weight: 500;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    border-radius: var(--radius-sm);
   }
 
   @media (min-width: 1024px) {
@@ -233,22 +131,14 @@ import heroImg from '@assets/portfolio/roly-hero.png';
       padding-block: var(--space-24) var(--space-32);
     }
 
-    .hero-meta {
-      margin-bottom: var(--space-16);
-    }
-
-    .hero-layout {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    .hero-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: var(--space-16);
       align-items: center;
     }
 
     .hero-image {
       aspect-ratio: 3 / 4;
-    }
-
-    .hero-title {
-      font-size: clamp(3rem, 5vw, 5.5rem);
     }
   }
 </style>

@@ -2,40 +2,20 @@
 import { processSteps } from '@data/process';
 ---
 <section id="proceso" class="process">
-  <div class="process-watermark" aria-hidden="true">
-    <span class="watermark watermark--outlined watermark-parallax">04</span>
-  </div>
-
   <div class="container">
     <header class="section-header">
-      <div class="section-header-top">
-        <span class="section-marker">Sección 04 · Proceso</span>
-        <span class="section-count">Del diagnóstico al soporte postventa</span>
-      </div>
-      <h2 class="section-title">
-        Cuatro fases.<br>
-        <span class="accent">Cero sorpresas.</span>
-      </h2>
+      <span class="subhead">Cómo trabajamos</span>
+      <h2>Cuatro pasos. Sin sorpresas.</h2>
       <p class="section-lead">
-        Cada proyecto sigue el mismo método documentado: diagnóstico técnico,
-        modelo BIM, ejecución por fases y entrega con garantía.
+        Del diagnóstico al soporte postventa. Cada fase documentada, cada plazo cumplido.
       </p>
     </header>
 
-    <div class="tick-rail reveal-draw" aria-hidden="true"></div>
-
     <ol class="process-list">
-      {processSteps.map((step, i) => (
-        <li class="process-step reveal-stagger" style={`animation-delay: ${i * 120}ms`}>
-          <div class="process-step-header">
-            <span class="process-number">{step.number}</span>
-            <span class="process-dot" aria-hidden="true"></span>
-          </div>
-
-          <div class="progress-bar" style={`--progress: ${(i + 1) * 25}%`}></div>
-
+      {processSteps.map((step) => (
+        <li class="process-step reveal">
+          <span class="process-number">{step.number}</span>
           <div class="process-content">
-            <span class="process-phase">Fase {step.number}</span>
             <h3 class="process-title">{step.title}</h3>
             <p class="process-description">{step.description}</p>
           </div>
@@ -48,151 +28,84 @@ import { processSteps } from '@data/process';
 <style>
   .process {
     background: var(--surface-1);
-    border-top: var(--hairline);
-    border-bottom: var(--hairline);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .process-watermark {
-    position: absolute;
-    top: 4vh;
-    right: -8vw;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .process-watermark .watermark {
-    display: block;
-    line-height: 0.85;
-  }
-
-  .process :global(.container) {
-    position: relative;
-    z-index: 1;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .section-header {
-    max-width: 760px;
+    max-width: 720px;
     margin-bottom: var(--space-16);
   }
 
-  .section-header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    padding-bottom: var(--space-4);
-    border-bottom: var(--hairline);
-  }
-
-  .section-count {
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    margin-top: var(--space-8);
-    font-size: var(--fs-h1);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    text-wrap: balance;
-  }
-
-  .section-title .accent {
-    color: var(--text-primary);
+  .section-header h2 {
+    margin-top: var(--space-3);
   }
 
   .section-lead {
-    margin-top: var(--space-6);
+    margin-top: var(--space-4);
     font-size: var(--fs-body-lg);
     color: var(--text-secondary);
-    max-width: 58ch;
-  }
-
-  .tick-rail {
-    margin-bottom: var(--space-6);
-    transform-origin: left;
   }
 
   .process-list {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-8);
   }
 
   .process-step {
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
-  }
-
-  .process-step-header {
-    display: flex;
-    align-items: flex-end;
     gap: var(--space-4);
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--border-subtle);
+    position: relative;
   }
 
   .process-number {
     font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
     font-weight: 800;
-    font-size: clamp(4rem, 8vw, 7rem);
-    line-height: 0.85;
-    color: var(--corpoha-steel-600);
-    letter-spacing: -0.05em;
-  }
-
-  .process-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--action-primary);
-    margin-bottom: 0.4em;
-  }
-
-  .progress-bar {
-    max-width: 72%;
-  }
-
-  .process-phase {
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 500;
     color: var(--action-primary);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
 
   .process-title {
-    margin-top: var(--space-2);
-    font-size: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    font-size: var(--fs-h3);
     color: var(--text-heading);
-    text-wrap: balance;
   }
 
   .process-description {
     margin-top: var(--space-3);
     color: var(--text-secondary);
-    max-width: 44ch;
+    max-width: 52ch;
   }
 
   @media (min-width: 768px) {
     .process-list {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-16) var(--space-10);
+      gap: var(--space-12);
+    }
+
+    .process-step {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: var(--space-6);
+    }
+
+    .process-number {
+      flex-shrink: 0;
+      min-width: 4.5rem;
     }
   }
 
   @media (min-width: 1200px) {
     .process-list {
       grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-8);
+    }
+
+    .process-step {
+      flex-direction: column;
     }
   }
 </style>

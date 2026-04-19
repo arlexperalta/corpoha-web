@@ -115,26 +115,4 @@
   /* Section spacing */
   --section-spacing:        var(--space-24);
   --section-spacing-mobile: var(--space-16);
-
-  /* ---------- BLUEPRINT SYSTEM ---------- */
-
-  /* Grid pattern (ultra-sutil, como hoja técnica) */
-  --blueprint-grid-size: 32px;
-  --blueprint-grid-color: color-mix(in oklch, var(--corpoha-steel-600) 8%, transparent);
-
-  /* Hairlines (ruler marks) */
-  --hairline: 1px solid color-mix(in oklch, var(--corpoha-steel-600) 25%, transparent);
-  --hairline-strong: 1px solid var(--corpoha-steel-600);
-  --hairline-amber: 1px solid var(--corpoha-amber-500);
-
-  /* Monospace-feeling (usando Montserrat con tracking extremo) */
-  --letter-spacing-technical: 0.18em;
-  --letter-spacing-mono: 0.08em;
-
-  /* Watermark numbers */
-  --fs-watermark: clamp(8rem, 18vw, 20rem);
-
-  /* Corner brackets size */
-  --bracket-size: 12px;
-  --bracket-stroke: 2px;
 }

@@ -11,51 +11,35 @@ const iconPaths: Record<string, string> = {
 };
 ---
 <section id="servicios" class="services">
-  <div class="services-watermark" aria-hidden="true">
-    <span class="watermark watermark--outlined watermark-parallax">02</span>
-  </div>
-
   <div class="container">
     <header class="section-header">
-      <span class="section-marker">Sección 02 · Servicios</span>
-      <h2 class="section-title">
-        Cuatro servicios.<br>
-        <span class="accent">Un solo estándar técnico.</span>
-      </h2>
+      <span class="subhead">Qué hacemos</span>
+      <h2>Cuatro servicios, una sola empresa.</h2>
       <p class="section-lead">
-        Desde remodelaciones comerciales hasta infraestructura nacional. Mismo equipo,
-        misma disciplina de obra, misma exigencia de entrega.
+        Desde remodelaciones comerciales hasta infraestructura nacional. Un mismo equipo,
+        un mismo estándar técnico.
       </p>
     </header>
 
     <ul class="services-grid">
-      {services.map((service, i) => (
-        <li class="service-card reveal-stagger" style={`animation-delay: ${i * 80}ms`}>
-          <div class="service-header">
-            <span class="service-number">0{i + 1}</span>
-            <span class="service-divider" aria-hidden="true"></span>
-            <span class="service-label">Servicio</span>
-          </div>
-
+      {services.map((service) => (
+        <li class="service-card reveal">
           <span class="service-icon" aria-hidden="true">
             <svg
-              width="40"
-              height="40"
+              width="32"
+              height="32"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="1.4"
+              stroke-width="1.8"
               stroke-linecap="round"
               stroke-linejoin="round"
             >
               <path d={iconPaths[service.icon]} />
             </svg>
           </span>
-
           <h3 class="service-title">{service.title}</h3>
           <p class="service-description">{service.description}</p>
-
-          <span class="service-underline" aria-hidden="true"></span>
         </li>
       ))}
     </ul>
@@ -64,154 +48,71 @@ const iconPaths: Record<string, string> = {
 
 <style>
   .services {
-    position: relative;
     background: var(--surface-1);
-    border-top: var(--hairline);
-    border-bottom: var(--hairline);
-    overflow: hidden;
-  }
-
-  .services-watermark {
-    position: absolute;
-    bottom: -6vh;
-    left: -4vw;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .services-watermark .watermark {
-    display: block;
-    line-height: 0.85;
-  }
-
-  .services :global(.container) {
-    position: relative;
-    z-index: 1;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .section-header {
-    max-width: 760px;
+    max-width: 720px;
     margin-bottom: var(--space-16);
   }
 
-  .section-title {
-    margin-top: var(--space-4);
-    font-size: var(--fs-h1);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    text-wrap: balance;
-  }
-
-  .section-title .accent {
-    color: var(--text-primary);
+  .section-header h2 {
+    margin-top: var(--space-3);
   }
 
   .section-lead {
-    margin-top: var(--space-6);
+    margin-top: var(--space-4);
     font-size: var(--fs-body-lg);
     color: var(--text-secondary);
-    max-width: 58ch;
   }
 
   .services-grid {
     display: grid;
-    gap: 0;
+    gap: var(--space-6);
     grid-template-columns: 1fr;
-    border-top: var(--hairline-strong);
   }
 
   .service-card {
+    background: var(--surface-0);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-8);
     position: relative;
-    padding: var(--space-12) var(--space-6);
-    border-bottom: var(--hairline-strong);
-    transition: background 220ms ease-out;
-    cursor: default;
+    transition: border-color 180ms ease-out, transform 180ms ease-out;
   }
 
   .service-card:hover {
-    background: color-mix(in oklch, var(--action-primary) 6%, transparent);
-  }
-
-  .service-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-10);
-  }
-
-  .service-number {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.25rem;
-    color: var(--action-primary);
-    letter-spacing: -0.02em;
-  }
-
-  .service-divider {
-    flex: 0 0 36px;
-    height: 1px;
-    background: var(--corpoha-steel-600);
-    opacity: 0.4;
-  }
-
-  .service-label {
-    font-family: var(--font-heading);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: var(--letter-spacing-technical);
-    text-transform: uppercase;
+    border-color: var(--corpoha-steel-600);
+    transform: translateY(-2px);
   }
 
   .service-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklch, var(--action-primary) 15%, transparent);
     color: var(--corpoha-steel-600);
-    margin-bottom: var(--space-6);
   }
 
   .service-title {
-    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    margin-top: var(--space-4);
+    font-size: var(--fs-h3);
     color: var(--text-heading);
-    font-weight: 700;
-    max-width: 20ch;
   }
 
   .service-description {
-    margin-top: var(--space-4);
+    margin-top: var(--space-3);
     color: var(--text-secondary);
-    font-size: var(--fs-body);
-    max-width: 48ch;
   }
 
-  .service-underline {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    height: 3px;
-    width: 0;
-    background: var(--action-primary);
-    transition: width 360ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .service-card:hover .service-underline {
-    width: 100%;
-  }
-
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .services-grid {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .service-card {
-      padding: var(--space-16) var(--space-12);
-    }
-
-    .service-card:nth-child(odd) {
-      border-right: var(--hairline-strong);
     }
   }
 </style>
