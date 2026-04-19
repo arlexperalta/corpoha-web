@@ -2,56 +2,24 @@
 import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Hero from '@components/Hero.astro';
+import ServicesGrid from '@components/ServicesGrid.astro';
+import PortfolioGrid from '@components/PortfolioGrid.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import AboutSection from '@components/AboutSection.astro';
+import ContactBlock from '@components/ContactBlock.astro';
+import Footer from '@components/Footer.astro';
 import StickyWhatsApp from '@components/StickyWhatsApp.astro';
 ---
 <Layout>
   <Header />
   <main>
     <Hero />
-
-    <section id="servicios" class="container placeholder-section">
-      <span class="subhead">Próximo</span>
-      <h2>Servicios (4 cards 2×2)</h2>
-      <p class="text-secondary">Remodelación · Proyectos de Construcción · Consultoría y Gestión · Diseño y Cálculo Estructural</p>
-    </section>
-
-    <section id="portafolio" class="container placeholder-section">
-      <span class="subhead">Próximo</span>
-      <h2>Portafolio (12 obras · grid 3:2)</h2>
-      <p class="text-secondary">Pádel Nuestro · Roly · Oui Bistro · Rosita · Pádel Point · El Camarón · Lubripartes · Termogeneradores · Peaje Uchire · Túneles · Vivienda mansión · Villa piscina</p>
-    </section>
-
-    <section id="proceso" class="container placeholder-section">
-      <span class="subhead">Próximo</span>
-      <h2>Proceso (4 pasos)</h2>
-      <p class="text-secondary">Visita y diagnóstico · Modelado BIM + presupuesto · Ejecución por fases · Entrega y garantía</p>
-    </section>
-
-    <section id="nosotros" class="section-dark placeholder-section-dark">
-      <div class="container">
-        <span class="subhead" style="color: var(--corpoha-amber-500);">Próximo</span>
-        <h2>Nosotros (sección navy con stats)</h2>
-        <p>12 obras entregadas · 4 categorías · 4 estados</p>
-      </div>
-    </section>
-
-    <section id="contacto" class="container placeholder-section">
-      <span class="subhead">Próximo</span>
-      <h2>Contacto (CTA WhatsApp grande)</h2>
-      <p class="text-secondary">¿Listo para tu obra?</p>
-    </section>
+    <ServicesGrid />
+    <PortfolioGrid />
+    <ProcessSteps />
+    <AboutSection />
+    <ContactBlock />
   </main>
-
+  <Footer />
   <StickyWhatsApp />
 </Layout>
-
-<style>
-  .placeholder-section {
-    padding-block: var(--space-16);
-    border-top: 1px dashed var(--border-subtle);
-  }
-
-  .placeholder-section-dark {
-    padding-block: var(--space-16);
-  }
-</style>

@@ -1,0 +1,158 @@
+// NOTA: El mapeo imagen→obra es tentativo (orden del PDF del portafolio).
+// Revisar visualmente con Kroma/Arlex y renombrar PNGs si hay mismatch.
+// Ubicación PNGs: src/assets/portfolio/
+
+import rosita from '@assets/portfolio/rosita.png';
+import rolyDetalle from '@assets/portfolio/roly-detalle.png';
+import ouiBistro from '@assets/portfolio/oui-bistro.png';
+import padelNuestro from '@assets/portfolio/padel-nuestro.png';
+import padelPoint from '@assets/portfolio/padel-point.png';
+import lubripartes from '@assets/portfolio/lubripartes.png';
+import elCamaron from '@assets/portfolio/el-camaron.png';
+import termogeneradores from '@assets/portfolio/termogeneradores.png';
+import peajeUchire from '@assets/portfolio/peaje-uchire.png';
+import tuneles from '@assets/portfolio/tuneles.png';
+import viviendaMansion from '@assets/portfolio/vivienda-mansion.png';
+import villaPiscina from '@assets/portfolio/villa-piscina.png';
+
+export type ProjectCategory = 'comercial' | 'industrial' | 'desarrollo' | 'residencial';
+
+export interface Project {
+  id: string;
+  name: string;
+  location: string;
+  category: ProjectCategory;
+  description: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+export const projectCategories: Record<ProjectCategory, string> = {
+  comercial: 'Locales comerciales',
+  industrial: 'Construcción industrial',
+  desarrollo: 'Desarrollo nacional',
+  residencial: 'Proyectos residenciales',
+};
+
+export const projects: Project[] = [
+  {
+    id: 'rosita',
+    name: 'Panadería Rosita',
+    location: 'Caracas',
+    category: 'comercial',
+    description:
+      'Remodelación integral de sede principal ejecutada sin interrumpir la producción diaria. Obra compleja en entorno operativo activo.',
+    image: rosita,
+    imageAlt: 'Panadería Rosita — remodelación integral, Caracas',
+  },
+  {
+    id: 'roly',
+    name: 'Tienda Roly',
+    location: 'Caracas',
+    category: 'comercial',
+    description:
+      'Renovación completa del diseño interior con acabados de estándares europeos, iluminación moderna y optimización de espacios.',
+    image: rolyDetalle,
+    imageAlt: 'Tienda Roly — interior remodelado con estándares europeos, Caracas',
+  },
+  {
+    id: 'oui-bistro',
+    name: 'Oui Bistro & Lounge',
+    location: 'Las Mercedes, Caracas',
+    category: 'comercial',
+    description:
+      'Remodelación de bistró francés con mejoras en terraza y sistemas de iluminación que realzan la elegancia del concepto.',
+    image: ouiBistro,
+    imageAlt: 'Oui Bistro Lounge — remodelación de bistró francés, Las Mercedes',
+  },
+  {
+    id: 'padel-nuestro',
+    name: 'Pádel Nuestro',
+    location: 'El Hatillo, Miranda',
+    category: 'comercial',
+    description:
+      'Construcción de tienda 200-300 m² con materiales sostenibles (LED, pinturas bajo VOC) y tecnología BIM. Ejecutado en 4-6 semanas.',
+    image: padelNuestro,
+    imageAlt: 'Pádel Nuestro — tienda comercial 200-300 m², El Hatillo',
+  },
+  {
+    id: 'padel-point',
+    name: 'Pádel Point',
+    location: 'Caracas',
+    category: 'comercial',
+    description:
+      'Tienda comercial especializada con acabados en concreto pulido. Construcción integral completada en 1 semana por urgencia del cliente.',
+    image: padelPoint,
+    imageAlt: 'Pádel Point — tienda con acabado concreto pulido, Caracas',
+  },
+  {
+    id: 'lubripartes',
+    name: 'Autolavado Lubripartes',
+    location: 'Caracas',
+    category: 'comercial',
+    description:
+      'Rehabilitación integral de espacio abandonado. Intervención de fachada, recuperación estructural y adecuación general para reapertura.',
+    image: lubripartes,
+    imageAlt: 'Autolavado Lubripartes — rehabilitación integral',
+  },
+  {
+    id: 'el-camaron',
+    name: 'Restaurante El Camarón',
+    location: 'Caracas',
+    category: 'comercial',
+    description:
+      'Remodelación integral con demolición completa hasta piso y techo. Obra ejecutada por fases manteniendo la operatividad del restaurante.',
+    image: elCamaron,
+    imageAlt: 'Restaurante El Camarón — remodelación integral por fases',
+  },
+  {
+    id: 'termogeneradores',
+    name: 'Construcción de Termogeneradores',
+    location: 'Valles del Tuy, Miranda',
+    category: 'industrial',
+    description:
+      'Infraestructura industrial de gran envergadura: fundaciones con estudios geotécnicos, trincheras de concreto para tuberías de gas y bases para termogeneradores eléctricos.',
+    image: termogeneradores,
+    imageAlt: 'Construcción de termogeneradores — infraestructura industrial, Valles del Tuy',
+  },
+  {
+    id: 'peaje-uchire',
+    name: 'Peaje de Boca de Uchire',
+    location: 'Miranda / Anzoátegui',
+    category: 'desarrollo',
+    description:
+      'Construcción y rehabilitación estratégica en frontera interestatal. Desarrollo regional con materiales de alta calidad y tecnologías avanzadas.',
+    image: peajeUchire,
+    imageAlt: 'Peaje de Boca de Uchire — construcción en frontera Miranda/Anzoátegui',
+  },
+  {
+    id: 'tuneles',
+    name: 'Reparación de Túneles',
+    location: 'Venezuela',
+    category: 'desarrollo',
+    description:
+      'Rehabilitación de túnel con inyección de poliuretano para sellado de grietas, resane y tratamiento de juntas de dilatación.',
+    image: tuneles,
+    imageAlt: 'Reparación y rehabilitación de túnel — intervención técnica especializada',
+  },
+  {
+    id: 'vivienda-mansion',
+    name: 'Remodelación de Mansión',
+    location: 'Caracas',
+    category: 'residencial',
+    description:
+      'Intervención total con rediseño de baños y sistemas de pintura de alto rendimiento. Optimización espacial y excelencia constructiva.',
+    image: viviendaMansion,
+    imageAlt: 'Remodelación de mansión — intervención integral residencial',
+  },
+  {
+    id: 'villa-piscina',
+    name: 'Villa con piscina',
+    location: 'Caracas',
+    category: 'residencial',
+    description:
+      'Ejecución técnica de alta complejidad con granito de gran formato en piscina. Renovación integral de áreas privadas: baños y habitaciones.',
+    image: villaPiscina,
+    imageAlt: 'Villa con piscina — remodelación con granito de gran formato',
+  },
+];

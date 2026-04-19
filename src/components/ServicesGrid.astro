@@ -1,0 +1,118 @@
+---
+import { services } from '@data/services';
+
+const iconPaths: Record<string, string> = {
+  home: 'M3 12l9-9 9 9M5 10v10h4v-6h6v6h4V10',
+  building: 'M3 21h18M6 3h12v18H6zM9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2',
+  clipboard:
+    'M9 4h6a1 1 0 011 1v1h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h2V5a1 1 0 011-1zM9 12h6M9 16h4',
+  structure:
+    'M3 3v18h18M7 21V8l5 3V7l5 3v11',
+};
+---
+<section id="servicios" class="services">
+  <div class="container">
+    <header class="section-header">
+      <span class="subhead">Qué hacemos</span>
+      <h2>Cuatro servicios, una sola empresa.</h2>
+      <p class="section-lead">
+        Desde remodelaciones comerciales hasta infraestructura nacional. Un mismo equipo,
+        un mismo estándar técnico.
+      </p>
+    </header>
+
+    <ul class="services-grid">
+      {services.map((service) => (
+        <li class="service-card reveal">
+          <span class="service-icon" aria-hidden="true">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d={iconPaths[service.icon]} />
+            </svg>
+          </span>
+          <h3 class="service-title">{service.title}</h3>
+          <p class="service-description">{service.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--surface-1);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .section-header {
+    max-width: 720px;
+    margin-bottom: var(--space-16);
+  }
+
+  .section-header h2 {
+    margin-top: var(--space-3);
+  }
+
+  .section-lead {
+    margin-top: var(--space-4);
+    font-size: var(--fs-body-lg);
+    color: var(--text-secondary);
+  }
+
+  .services-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  .service-card {
+    background: var(--surface-0);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-8);
+    position: relative;
+    transition: border-color 180ms ease-out, transform 180ms ease-out;
+  }
+
+  .service-card:hover {
+    border-color: var(--corpoha-steel-600);
+    transform: translateY(-2px);
+  }
+
+  .service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: color-mix(in oklch, var(--action-primary) 15%, transparent);
+    color: var(--corpoha-steel-600);
+  }
+
+  .service-title {
+    margin-top: var(--space-4);
+    font-size: var(--fs-h3);
+    color: var(--text-heading);
+  }
+
+  .service-description {
+    margin-top: var(--space-3);
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
