@@ -1,0 +1,92 @@
+---
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Corporación HA — Construcción y remodelación en Caracas',
+  description = 'Remodelación de oficinas, locales y espacios comerciales en Caracas. Proceso BIM, ejecución por fases, cero improvisación. Cotiza por WhatsApp.',
+  image = '/og-image.jpg',
+  canonical,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() ?? 'https://corpoha.com';
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL(image, siteUrl).toString();
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#F9B233" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Preload fonts críticas -->
+    <link
+      rel="preload"
+      href="/fonts/Montserrat-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Switzer-Variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="es_VE" />
+    <meta property="og:site_name" content="Corporación HA" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Schema.org LocalBusiness / GeneralContractor -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'GeneralContractor',
+      name: 'Corporación HA',
+      alternateName: 'CorpoHA',
+      description,
+      url: siteUrl,
+      image: ogImageUrl,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Caracas',
+        addressCountry: 'VE',
+      },
+      areaServed: ['Caracas', 'Miranda', 'Anzoátegui', 'Venezuela'],
+      sameAs: [
+        'https://instagram.com/corpoha85',
+      ],
+    })} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

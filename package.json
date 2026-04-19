@@ -1,0 +1,23 @@
+{
+  "name": "corpoha-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Web corporativa de Corporación HA — construcción y remodelación",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.6.3"
+  }
+}

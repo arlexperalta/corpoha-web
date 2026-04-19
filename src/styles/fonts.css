@@ -1,0 +1,34 @@
+/* ============================================================
+   CorpoHA — Fonts
+   Montserrat: fontsource-variable (WOFF2)
+   Switzer:    Fontshare (TTF variable — no WOFF2 disponible)
+   ============================================================ */
+
+/* Montserrat Variable (wght 100-900) */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/Montserrat-Variable.woff2") format("woff2-variations"),
+       url("/fonts/Montserrat-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Switzer Variable (wght 100-900) — TTF hasta tener WOFF2 */
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/Switzer-Variable.ttf") format("truetype-variations"),
+       url("/fonts/Switzer-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/Switzer-VariableItalic.ttf") format("truetype-variations"),
+       url("/fonts/Switzer-VariableItalic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}

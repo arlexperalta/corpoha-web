@@ -1,0 +1,33 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+<Layout>
+  <main class="container" style="padding-block: var(--space-24);">
+    <section>
+      <span class="subhead">Corporación HA · 2026</span>
+      <h1 style="margin-top: var(--space-4);">
+        Remodelamos tu negocio sin parar tu operación.
+      </h1>
+      <p style="margin-top: var(--space-6); font-size: var(--fs-body-lg); color: var(--text-secondary);">
+        Construcción y remodelación comercial, residencial e industrial en Caracas.
+        Proceso BIM, cero improvisación.
+      </p>
+      <div style="display: flex; gap: var(--space-4); margin-top: var(--space-8); flex-wrap: wrap;">
+        <a href="#contacto" class="btn-primary">Hablar por WhatsApp</a>
+        <a href="#portafolio" class="btn-secondary">Ver obras</a>
+      </div>
+
+      <div style="margin-top: var(--space-24); padding: var(--space-8); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+        <span class="subhead">Estado del scaffolding</span>
+        <h3 style="margin-top: var(--space-2);">Fase 1 — Base del proyecto</h3>
+        <ul style="margin-top: var(--space-4); display: grid; gap: var(--space-2); color: var(--text-secondary); list-style: disc; padding-left: var(--space-6);">
+          <li>Astro 5 + TypeScript configurado</li>
+          <li>Tokens oklch (3 colores marca + neutros)</li>
+          <li>Layout base con meta tags + Schema.org</li>
+          <li>Fuentes Montserrat + Switzer (pendiente descarga)</li>
+          <li>Componentes pendientes: Header, Hero, ServicesGrid, PortfolioGrid, ProcessSteps, AboutSection, ContactBlock, StickyWhatsApp, Footer</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
