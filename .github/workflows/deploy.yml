@@ -52,11 +52,16 @@ jobs:
             cd /opt/corpoha
             docker compose up -d --remove-orphans --force-recreate
             docker exec corpoha nginx -s reload 2>&1 | tail -3
-            echo "--- Public URL check (www requerido, apex tolerante mientras DNS+SSL no estén) ---"
-            CODE_WWW=$(curl -s -o /dev/null -w "%{http_code}" https://www.corpoha85.com/ || echo "000")
-            echo "www.corpoha85.com HTTP $CODE_WWW"
-            CODE_APEX=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 https://corpoha85.com/ || echo "000")
-            echo "corpoha85.com HTTP $CODE_APEX (informational only)"
-            if [ "$CODE_WWW" != "200" ]; then
-              echo "ERROR: www no responde 200" && exit 1
+            echo "--- Public URL check (canonical: apex; www redirige 301) ---"
+            CODE_APEX=$(curl -s -o /dev/null -w "%{http_code}" https://corpoha85.com/)
+            echo "https://corpoha85.com/         HTTP $CODE_APEX"
+            CODE_WWW=$(curl -s -o /dev/null -w "%{http_code}" --max-redirs 0 https://www.corpoha85.com/)
+            echo "https://www.corpoha85.com/    HTTP $CODE_WWW (esperado 301 a apex)"
+            CODE_FAVICON=$(curl -s -o /dev/null -w "%{http_code}" https://corpoha85.com/favicon.svg)
+            echo "favicon.svg                   HTTP $CODE_FAVICON"
+            if [ "$CODE_APEX" != "200" ]; then
+              echo "ERROR: apex no responde 200" && exit 1
+            fi
+            if [ "$CODE_WWW" != "301" ]; then
+              echo "ERROR: www debería redirigir 301, vino $CODE_WWW" && exit 1
             fi
