@@ -1,8 +1,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+const isDemoBuild = process.env.DEMO_BUILD === '1';
+
 export default defineConfig({
-  site: 'https://corpoha85.com',
+  site: isDemoBuild ? 'https://arlexperalta.com' : 'https://corpoha85.com',
+  ...(isDemoBuild ? { base: '/demo/corpoha' } : {}),
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   image: {

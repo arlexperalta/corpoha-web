@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:demo": "DEMO_BUILD=1 astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
