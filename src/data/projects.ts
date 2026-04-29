@@ -1,23 +1,24 @@
-// NOTA: El mapeo imagen→obra es tentativo (orden del PDF del portafolio).
-// Revisar visualmente y renombrar PNGs si hay mismatch.
+import type { ImageMetadata } from 'astro';
 
-import rosita from '@assets/portfolio/rosita.png';
-import rolyDetalle from '@assets/portfolio/roly-detalle.png';
-import ouiBistro from '@assets/portfolio/oui-bistro.png';
-import padelNuestro from '@assets/portfolio/padel-nuestro.png';
-import padelPoint from '@assets/portfolio/padel-point.png';
-import lubripartes from '@assets/portfolio/lubripartes.png';
-import elCamaron from '@assets/portfolio/el-camaron.png';
-import termogeneradores from '@assets/portfolio/termogeneradores.png';
-import peajeUchire from '@assets/portfolio/peaje-uchire.png';
-import tuneles from '@assets/portfolio/tuneles.png';
-import viviendaMansion from '@assets/portfolio/vivienda-mansion.png';
-import villaPiscina from '@assets/portfolio/villa-piscina.png';
+// Cargar todas las imágenes del portafolio. Astro las optimiza pasándolas
+// por <Image> en los componentes consumidores.
+const portfolioImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/portfolio/**/foto-*.{jpg,jpeg,png}',
+  { eager: true }
+);
+
+function imagesForSlug(dirSlug: string): ImageMetadata[] {
+  return Object.entries(portfolioImages)
+    .filter(([path]) => path.includes(`/portfolio/${dirSlug}/`))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, mod]) => mod.default);
+}
 
 export type ProjectCategory = 'comercial' | 'industrial' | 'desarrollo' | 'residencial';
 
 export interface Project {
   id: string;
+  dirSlug: string;
   name: string;
   location: string;
   category: ProjectCategory;
@@ -26,7 +27,7 @@ export interface Project {
   area: string;
   duration: string;
   description: string;
-  image: ImageMetadata;
+  images: ImageMetadata[];
   imageAlt: string;
 }
 
@@ -42,6 +43,7 @@ export const categoryFilters = ['Todos', 'Comercial', 'Residencial', 'Industrial
 export const projects: Project[] = [
   {
     id: 'rosita',
+    dirSlug: '01-rosita',
     name: 'Panadería Rosita',
     location: 'Caracas',
     category: 'comercial',
@@ -51,11 +53,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación integral de sede principal ejecutada sin interrumpir la producción diaria. Obra compleja en entorno operativo activo.',
-    image: rosita,
+    images: imagesForSlug('01-rosita'),
     imageAlt: 'Panadería Rosita — remodelación integral, Caracas',
   },
   {
     id: 'roly',
+    dirSlug: '02-roly',
     name: 'Tienda Roly',
     location: 'Caracas',
     category: 'comercial',
@@ -65,11 +68,12 @@ export const projects: Project[] = [
     duration: '6 sem',
     description:
       'Renovación completa del diseño interior con acabados de estándares europeos, iluminación moderna y optimización de espacios.',
-    image: rolyDetalle,
+    images: imagesForSlug('02-roly'),
     imageAlt: 'Tienda Roly — interior remodelado con estándares europeos, Caracas',
   },
   {
     id: 'oui-bistro',
+    dirSlug: '03-oui-bistro',
     name: 'Oui Bistro & Lounge',
     location: 'Las Mercedes, Caracas',
     category: 'comercial',
@@ -79,11 +83,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación de bistró francés con mejoras en terraza y sistemas de iluminación que realzan la elegancia del concepto.',
-    image: ouiBistro,
+    images: imagesForSlug('03-oui-bistro'),
     imageAlt: 'Oui Bistro Lounge — remodelación de bistró francés, Las Mercedes',
   },
   {
     id: 'padel-nuestro',
+    dirSlug: '04-padel-nuestro',
     name: 'Pádel Nuestro',
     location: 'El Hatillo, Miranda',
     category: 'comercial',
@@ -93,11 +98,12 @@ export const projects: Project[] = [
     duration: '4–6 sem',
     description:
       'Construcción de tienda con materiales sostenibles (LED, pinturas bajo VOC) y tecnología BIM aplicada al modelado 3D.',
-    image: padelNuestro,
+    images: imagesForSlug('04-padel-nuestro'),
     imageAlt: 'Pádel Nuestro — tienda comercial 200-300 m², El Hatillo',
   },
   {
     id: 'padel-point',
+    dirSlug: '05-padel-point',
     name: 'Pádel Point',
     location: 'Caracas',
     category: 'comercial',
@@ -107,11 +113,12 @@ export const projects: Project[] = [
     duration: '1 sem',
     description:
       'Tienda comercial especializada con acabados en concreto pulido. Construcción integral completada en una semana por urgencia del cliente.',
-    image: padelPoint,
+    images: imagesForSlug('05-padel-point'),
     imageAlt: 'Pádel Point — tienda con acabado concreto pulido, Caracas',
   },
   {
     id: 'lubripartes',
+    dirSlug: '06-lubripartes',
     name: 'Autolavado Lubripartes',
     location: 'Caracas',
     category: 'comercial',
@@ -121,11 +128,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Rehabilitación integral de espacio abandonado. Intervención de fachada, recuperación estructural y adecuación general para reapertura.',
-    image: lubripartes,
+    images: imagesForSlug('06-lubripartes'),
     imageAlt: 'Autolavado Lubripartes — rehabilitación integral',
   },
   {
     id: 'el-camaron',
+    dirSlug: '07-el-camaron',
     name: 'Restaurante El Camarón',
     location: 'Caracas',
     category: 'comercial',
@@ -135,11 +143,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación integral con demolición completa hasta piso y techo. Obra ejecutada por fases manteniendo la operatividad del restaurante.',
-    image: elCamaron,
+    images: imagesForSlug('07-el-camaron'),
     imageAlt: 'Restaurante El Camarón — remodelación integral por fases',
   },
   {
     id: 'termogeneradores',
+    dirSlug: '08-termogeneradores',
     name: 'Termogeneradores La Raisa',
     location: 'Valles del Tuy, Miranda',
     category: 'industrial',
@@ -149,11 +158,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Infraestructura industrial de gran envergadura: fundaciones con estudios geotécnicos, trincheras de concreto y bases para termogeneradores eléctricos.',
-    image: termogeneradores,
+    images: imagesForSlug('08-termogeneradores'),
     imageAlt: 'Construcción de termogeneradores — infraestructura industrial, Valles del Tuy',
   },
   {
     id: 'peaje-uchire',
+    dirSlug: '09-peaje-uchire',
     name: 'Peaje Boca de Uchire',
     location: 'Miranda / Anzoátegui',
     category: 'desarrollo',
@@ -163,11 +173,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Construcción y rehabilitación estratégica. Desarrollo regional con materiales de alta calidad y tecnologías avanzadas.',
-    image: peajeUchire,
+    images: imagesForSlug('09-peaje-uchire'),
     imageAlt: 'Peaje de Boca de Uchire — construcción en frontera Miranda/Anzoátegui',
   },
   {
     id: 'tuneles',
+    dirSlug: '10-tuneles',
     name: 'Reparación de Túneles',
     location: 'Venezuela',
     category: 'desarrollo',
@@ -177,11 +188,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Rehabilitación con inyección de poliuretano para sellado de grietas, resane y tratamiento de juntas de dilatación.',
-    image: tuneles,
+    images: imagesForSlug('10-tuneles'),
     imageAlt: 'Reparación y rehabilitación de túnel — intervención técnica especializada',
   },
   {
     id: 'vivienda-mansion',
+    dirSlug: '11-vivienda-mansion',
     name: 'Remodelación de Mansión',
     location: 'Caracas',
     category: 'residencial',
@@ -191,11 +203,12 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Intervención total con rediseño de baños y sistemas de pintura de alto rendimiento. Optimización espacial y excelencia constructiva.',
-    image: viviendaMansion,
+    images: imagesForSlug('11-vivienda-mansion'),
     imageAlt: 'Remodelación de mansión — intervención integral residencial',
   },
   {
     id: 'villa-piscina',
+    dirSlug: '12-villa-piscina',
     name: 'Villa con Piscina',
     location: 'Caracas',
     category: 'residencial',
@@ -205,7 +218,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Ejecución técnica de alta complejidad con granito de gran formato en piscina. Renovación integral de áreas privadas: baños y habitaciones.',
-    image: villaPiscina,
+    images: imagesForSlug('12-villa-piscina'),
     imageAlt: 'Villa con piscina — remodelación con granito de gran formato',
   },
 ];

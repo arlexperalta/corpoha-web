@@ -36,32 +36,66 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
 
     <div class="portfolio__grid">
       {projects.map((p, i) => (
-        <article class="card" data-category={p.categoryLabel} data-id={p.id}>
-          <div class="card__img">
-            <Image
-              src={p.image}
-              alt={p.imageAlt}
-              widths={[320, 480, 640, 800]}
-              sizes="(min-width: 1200px) 25vw, (min-width: 768px) 33vw, (min-width: 480px) 50vw, 100vw"
-              format="avif"
-              quality={72}
-              loading="lazy"
-            />
-            <div class="card__img-overlay" aria-hidden="true"></div>
+        <article
+          class="card"
+          data-category={p.categoryLabel}
+          data-id={p.id}
+          data-name={p.name}
+          data-location={p.location}
+          data-year={p.year}
+          data-area={p.area}
+          data-duration={p.duration}
+          data-description={p.description}
+        >
+          <button
+            type="button"
+            class="card__btn"
+            aria-label={`Ver galería de ${p.name} (${p.images.length} fotos)`}
+          >
+            <div class="card__img">
+              <Image
+                src={p.images[0]}
+                alt={p.imageAlt}
+                widths={[320, 480, 640, 800]}
+                sizes="(min-width: 1200px) 25vw, (min-width: 768px) 33vw, (min-width: 480px) 50vw, 100vw"
+                format="avif"
+                quality={72}
+                loading="lazy"
+              />
+              <div class="card__img-overlay" aria-hidden="true"></div>
 
-            <div class="card__hover" aria-hidden="true">
-              <div class="card__hover-code">PR-{padNumber(i + 1)} · {p.year}</div>
-              <div class="card__hover-title">{p.name}</div>
-              <div class="card__hover-meta">
-                {p.area !== '—' && <span>{p.area}</span>}
-                {p.duration !== '—' && <span>· {p.duration}</span>}
+              <div class="card__count" aria-hidden="true">
+                <span class="card__count-icon">▦</span>
+                <span class="card__count-num">{p.images.length}</span>
+              </div>
+
+              <div class="card__hover" aria-hidden="true">
+                <div class="card__hover-code">PR-{padNumber(i + 1)} · {p.year}</div>
+                <div class="card__hover-title">{p.name}</div>
+                <div class="card__hover-cta">
+                  Ver galería <span class="card__hover-arrow">→</span>
+                </div>
               </div>
             </div>
-          </div>
+          </button>
           <div class="card__body">
             <span class="card__cat">{p.categoryLabel}</span>
             <h3 class="card__name">{p.name}</h3>
             <div class="card__loc">{p.location} · {p.year}</div>
+          </div>
+
+          <div class="card__gallery" hidden aria-hidden="true">
+            {p.images.map((img, idx) => (
+              <Image
+                src={img}
+                alt={`${p.name} — foto ${idx + 1}`}
+                widths={[768, 1280, 1920]}
+                sizes="(min-width: 1200px) 1100px, 100vw"
+                format="avif"
+                quality={78}
+                loading="lazy"
+              />
+            ))}
           </div>
         </article>
       ))}
@@ -85,6 +119,18 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
     overflow: hidden;
     position: relative;
     transition: transform 0.3s ease;
+  }
+
+  .card__btn {
+    all: unset;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+  }
+
+  .card__btn:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: -3px;
   }
 
   .card__img {
@@ -111,6 +157,29 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
     inset: 0;
     background: linear-gradient(180deg, transparent 50%, rgba(0, 10, 91, 0.35) 100%);
     pointer-events: none;
+  }
+
+  .card__count {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: rgba(0, 10, 91, 0.85);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .card__count-icon {
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.85;
   }
 
   .card__hover {
@@ -148,15 +217,25 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
     line-height: 1.1;
   }
 
-  .card__hover-meta {
+  .card__hover-cta {
     font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    opacity: 0.8;
-    margin-top: 4px;
+    opacity: 0.85;
+    margin-top: 8px;
     display: flex;
+    align-items: center;
     gap: 6px;
+  }
+
+  .card__hover-arrow {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover .card__hover-arrow {
+    transform: translateX(4px);
   }
 
   .card__body {
@@ -194,6 +273,11 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
     color: var(--steel);
     letter-spacing: 0.06em;
   }
+
+  /* Galería interna oculta — Astro la optimiza, JS la lee al abrir lightbox */
+  .card__gallery {
+    display: none;
+  }
 </style>
 
 <script>
@@ -209,6 +293,35 @@ const padNumber = (n: number) => String(n).padStart(2, '0');
         const show = filterValue === 'Todos' || cat === filterValue;
         c.style.display = show ? '' : 'none';
       });
+    });
+  });
+
+  // Lightbox: al click en card, despachar evento global con el dataset y las imágenes
+  cards.forEach((card) => {
+    const btn = card.querySelector<HTMLButtonElement>('.card__btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const gallery = card.querySelector<HTMLElement>('.card__gallery');
+      const imgs = gallery
+        ? Array.from(gallery.querySelectorAll<HTMLImageElement>('img')).map((i) => ({
+            src: i.currentSrc || i.src,
+            srcset: i.srcset,
+            sizes: i.sizes,
+            alt: i.alt,
+          }))
+        : [];
+      const detail = {
+        id: card.dataset.id,
+        name: card.dataset.name,
+        location: card.dataset.location,
+        year: card.dataset.year,
+        area: card.dataset.area,
+        duration: card.dataset.duration,
+        description: card.dataset.description,
+        category: card.dataset.category,
+        images: imgs,
+      };
+      window.dispatchEvent(new CustomEvent('corpoha:open-lightbox', { detail }));
     });
   });
 </script>
