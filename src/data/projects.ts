@@ -7,11 +7,19 @@ const portfolioImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
-function imagesForSlug(dirSlug: string): ImageMetadata[] {
-  return Object.entries(portfolioImages)
+function imagesForSlug(dirSlug: string, coverFile?: string): ImageMetadata[] {
+  const all = Object.entries(portfolioImages)
     .filter(([path]) => path.includes(`/portfolio/${dirSlug}/`))
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([, mod]) => mod.default);
+    .sort(([a], [b]) => a.localeCompare(b));
+
+  if (!coverFile) return all.map(([, mod]) => mod.default);
+
+  const coverIdx = all.findIndex(([path]) => path.endsWith(`/${coverFile}`));
+  if (coverIdx === -1) {
+    throw new Error(`coverFile "${coverFile}" no existe en ${dirSlug}`);
+  }
+  const [cover] = all.splice(coverIdx, 1);
+  return [cover, ...all].map(([, mod]) => mod.default);
 }
 
 export type ProjectCategory = 'comercial' | 'industrial' | 'desarrollo' | 'residencial';
@@ -53,7 +61,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación integral de sede principal ejecutada sin interrumpir la producción diaria. Obra compleja en entorno operativo activo.',
-    images: imagesForSlug('01-rosita'),
+    images: imagesForSlug('01-rosita', 'foto-02.jpg'),
     imageAlt: 'Panadería Rosita — remodelación integral, Caracas',
   },
   {
@@ -68,7 +76,7 @@ export const projects: Project[] = [
     duration: '6 sem',
     description:
       'Renovación completa del diseño interior con acabados de estándares europeos, iluminación moderna y optimización de espacios.',
-    images: imagesForSlug('02-roly'),
+    images: imagesForSlug('02-roly', 'foto-04.jpg'),
     imageAlt: 'Tienda Roly — interior remodelado con estándares europeos, Caracas',
   },
   {
@@ -83,7 +91,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación de bistró francés con mejoras en terraza y sistemas de iluminación que realzan la elegancia del concepto.',
-    images: imagesForSlug('03-oui-bistro'),
+    images: imagesForSlug('03-oui-bistro', 'foto-06.jpg'),
     imageAlt: 'Oui Bistro Lounge — remodelación de bistró francés, Las Mercedes',
   },
   {
@@ -98,7 +106,7 @@ export const projects: Project[] = [
     duration: '4–6 sem',
     description:
       'Construcción de tienda con materiales sostenibles (LED, pinturas bajo VOC) y tecnología BIM aplicada al modelado 3D.',
-    images: imagesForSlug('04-padel-nuestro'),
+    images: imagesForSlug('04-padel-nuestro', 'foto-02.jpg'),
     imageAlt: 'Pádel Nuestro — tienda comercial 200-300 m², El Hatillo',
   },
   {
@@ -113,7 +121,7 @@ export const projects: Project[] = [
     duration: '1 sem',
     description:
       'Tienda comercial especializada con acabados en concreto pulido. Construcción integral completada en una semana por urgencia del cliente.',
-    images: imagesForSlug('05-padel-point'),
+    images: imagesForSlug('05-padel-point', 'foto-04.jpg'),
     imageAlt: 'Pádel Point — tienda con acabado concreto pulido, Caracas',
   },
   {
@@ -128,7 +136,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Rehabilitación integral de espacio abandonado. Intervención de fachada, recuperación estructural y adecuación general para reapertura.',
-    images: imagesForSlug('06-lubripartes'),
+    images: imagesForSlug('06-lubripartes', 'foto-04.jpg'),
     imageAlt: 'Autolavado Lubripartes — rehabilitación integral',
   },
   {
@@ -143,7 +151,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Remodelación integral con demolición completa hasta piso y techo. Obra ejecutada por fases manteniendo la operatividad del restaurante.',
-    images: imagesForSlug('07-el-camaron'),
+    images: imagesForSlug('07-el-camaron', 'foto-02.jpg'),
     imageAlt: 'Restaurante El Camarón — remodelación integral por fases',
   },
   {
@@ -188,7 +196,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Rehabilitación con inyección de poliuretano para sellado de grietas, resane y tratamiento de juntas de dilatación.',
-    images: imagesForSlug('10-tuneles'),
+    images: imagesForSlug('10-tuneles', 'foto-04.jpg'),
     imageAlt: 'Reparación y rehabilitación de túnel — intervención técnica especializada',
   },
   {
@@ -203,7 +211,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Intervención total con rediseño de baños y sistemas de pintura de alto rendimiento. Optimización espacial y excelencia constructiva.',
-    images: imagesForSlug('11-vivienda-mansion'),
+    images: imagesForSlug('11-vivienda-mansion', 'foto-03.jpg'),
     imageAlt: 'Remodelación de mansión — intervención integral residencial',
   },
   {
@@ -218,7 +226,7 @@ export const projects: Project[] = [
     duration: '—',
     description:
       'Ejecución técnica de alta complejidad con granito de gran formato en piscina. Renovación integral de áreas privadas: baños y habitaciones.',
-    images: imagesForSlug('12-villa-piscina'),
+    images: imagesForSlug('12-villa-piscina', 'foto-07.jpg'),
     imageAlt: 'Villa con piscina — remodelación con granito de gran formato',
   },
 ];
