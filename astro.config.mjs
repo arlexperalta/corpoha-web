@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://arlexperalta.com',
-  base: '/demo/corpoha',
+  site: 'https://corpoha85.com',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   image: {

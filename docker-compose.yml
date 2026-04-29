@@ -1,0 +1,17 @@
+services:
+  corpoha:
+    image: nginx:alpine
+    container_name: corpoha
+    restart: unless-stopped
+    cpus: 0.5
+    mem_limit: 128m
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - default
+
+networks:
+  default:
+    name: nginx-proxy-manager_default
+    external: true

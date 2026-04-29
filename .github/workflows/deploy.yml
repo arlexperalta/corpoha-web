@@ -1,0 +1,58 @@
+name: Deploy CorpoHA
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Sync to Contabo
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: >-
+            -avz --delete
+            --exclude='node_modules'
+            --exclude='src'
+            --exclude='public'
+            --exclude='.astro'
+            --exclude='.git'
+            --exclude='.github'
+            --exclude='*.md'
+            --exclude='package*.json'
+            --exclude='tsconfig.json'
+            --exclude='astro.config.mjs'
+            --exclude='.gitignore'
+          path: ./
+          remote_path: /opt/corpoha/
+          remote_host: ${{ secrets.CONTABO_HOST }}
+          remote_user: root
+          remote_key: ${{ secrets.CONTABO_SSH_KEY }}
+
+      - name: Recreate container and verify
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.CONTABO_HOST }}
+          username: root
+          key: ${{ secrets.CONTABO_SSH_KEY }}
+          script: |
+            cd /opt/corpoha
+            docker compose up -d --remove-orphans --force-recreate
+            docker exec corpoha nginx -s reload 2>&1 | tail -3
+            echo "--- Public URL check ---"
+            curl -s -o /dev/null -w "corpoha85.com HTTP %{http_code}\n" https://corpoha85.com/
+            curl -s -o /dev/null -w "www.corpoha85.com HTTP %{http_code}\n" https://www.corpoha85.com/
+            curl -s -o /dev/null -w "favicon HTTP %{http_code}\n" https://corpoha85.com/favicon.svg

@@ -11,7 +11,6 @@ export const navItems: NavItem[] = [
   { label: 'Contacto', href: '#contacto' },
 ];
 
-// WhatsApp placeholder — pendiente número final de Christian
-export const whatsappNumber = '584XXXXXXXXX';
+export const whatsappNumber = '584142461486';
 export const whatsappMessage = 'Hola, vi su web y me interesa cotizar una remodelación.';
 export const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;

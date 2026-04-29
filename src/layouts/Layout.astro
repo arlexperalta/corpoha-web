@@ -15,7 +15,7 @@ const {
   canonical,
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString() ?? 'https://arlexperalta.com';
+const siteUrl = Astro.site?.toString() ?? 'https://corpoha85.com';
 const baseUrl = import.meta.env.BASE_URL;
 const faviconHref = `${baseUrl}/favicon.svg`.replace(/\/+/g, '/');
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
@@ -66,8 +66,11 @@ const ogImageUrl = new URL(`${baseUrl}${image}`.replace(/\/+/g, '/'), siteUrl).t
         addressCountry: 'VE',
       },
       areaServed: ['Caracas', 'Miranda', 'Anzoátegui', 'Venezuela'],
+      foundingDate: '2010',
+      telephone: '+584142461486',
       sameAs: [
         'https://instagram.com/corpoha85',
+        'https://wa.me/584142461486',
       ],
     })} />
   </head>
